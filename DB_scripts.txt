@@ -1,0 +1,16 @@
+CREATE TABLE public."user"
+(
+    id serial NOT NULL,
+    login character varying(31) NOT NULL,
+    password character varying(31) NOT NULL,
+    CONSTRAINT user_pkey PRIMARY KEY (id),
+    CONSTRAINT login_unique UNIQUE (login)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."user"
+    OWNER to qhifkeykkmtvou;
+
+
+
