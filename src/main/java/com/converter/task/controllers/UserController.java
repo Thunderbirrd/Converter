@@ -27,7 +27,6 @@ public class UserController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public User register(@RequestBody String login, String password){
-        login = login.substring(6, login.indexOf("&"));
         User user = new User();
         user.setLogin(login); user.setPassword(passwordEncoder.encode(password));
         return userService.saveUser(user);
