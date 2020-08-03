@@ -11,19 +11,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-/*
-    @GetMapping("/")
-    public String home(){
-        return "index";
-    }
-*/
+
     @Autowired
     private UserService userService;
-
-    @GetMapping("/getUser/{id}")
-    public User getUser(@PathVariable Integer id){
-        return userService.getUser(id);
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User register(@RequestBody String login, String password){

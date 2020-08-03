@@ -12,11 +12,6 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    @Transactional(readOnly = true)
-    public User getUser(Integer id){
-        return userRepo.findById(id).orElse(null);
-    }
-
     @Transactional
     public User saveUser(User user){
         userRepo.save(user);

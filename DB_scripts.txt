@@ -18,3 +18,17 @@ ALTER TABLE public."user"
 ALTER TABLE public."user"
     ALTER COLUMN password TYPE character varying(128) COLLATE pg_catalog."default";
 
+CREATE TABLE public.currency
+(
+    id serial NOT NULL,
+    name character varying(32) NOT NULL,
+    rate double precision NOT NULL,
+    CONSTRAINT currency_pkey PRIMARY KEY (id),
+    CONSTRAINT name_unique UNIQUE (name)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.currency
+    OWNER to qhifkeykkmtvou;
+
