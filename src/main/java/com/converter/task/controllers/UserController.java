@@ -11,12 +11,12 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @RequestMapping("/")
+/*
+    @GetMapping("/")
     public String home(){
-        return "Hello World!";
+        return "index";
     }
-
+*/
     @Autowired
     private UserService userService;
 
@@ -25,15 +25,17 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User register(@RequestBody String login, String password){
         User user = new User();
+        login = login.substring(6, login.indexOf("&"));
         user.setLogin(login); user.setPassword(passwordEncoder.encode(password));
         return userService.saveUser(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody String login, String password){
+        login = login.substring(6, login.indexOf("&"));
         User user = userService.findUserByLogin(login);
         if(user == null){
             return "Wrong login";
