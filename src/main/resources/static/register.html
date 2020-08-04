@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
     <h1>Регистрация</h1>
-    <form action="/register" method="post">
+    <form action="/register" method="post" id="register" @submit="checkForm">
         <div class="container">
             <input type="text" placeholder="Логин" name="login" required>
         </div>
@@ -17,11 +18,16 @@
         <br>
         <div class="container">
             <input type="password" placeholder="Повторите пароль" name="password2" required>
+            <div v-if="errors.length"><b>Пожалуйста, исправьте следующие ошибки:</b>
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul></div>
         </div>
         <br>
         <div class="container">
             <button type="submit">Зарегистрироваться</button>
         </div>
     </form>
+    <script src="js/main.js"></script>
 </body>
 </html>

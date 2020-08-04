@@ -2,6 +2,7 @@ package com.converter.task.models;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,4 +20,6 @@ public class Currency {
     private String name;
     @Column(name = "rate")
     private Double rate;
+    @Column(name = "update_date")
+    private Date update_date;
 }

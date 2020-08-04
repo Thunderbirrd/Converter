@@ -19,8 +19,12 @@ public class UserController {
     public User register(@RequestBody String login, String password){
         User user = new User();
         login = login.substring(6, login.indexOf("&"));
-        user.setLogin(login); user.setPassword(passwordEncoder.encode(password));
-        return userService.saveUser(user);
+        if(userService.findUserByLogin(login) == null) {
+            user.setLogin(login);
+            user.setPassword(passwordEncoder.encode(password));
+            return userService.saveUser(user);
+        }
+        return null;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

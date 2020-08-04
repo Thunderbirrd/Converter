@@ -32,3 +32,29 @@ TABLESPACE pg_default;
 ALTER TABLE public.currency
     OWNER to qhifkeykkmtvou;
 
+ALTER TABLE public.currency
+    ADD COLUMN update_date date NOT NULL;
+
+CREATE TABLE public.exchange
+(
+    id serial NOT NULL,
+    user_id integer NOT NULL,
+    currency1 character varying(32) NOT NULL,
+    rate1 double precision NOT NULL,
+    currency2 character varying(32) NOT NULL,
+    rate2 double precision NOT NULL,
+    CONSTRAINT exchange_pkey PRIMARY KEY (id),
+    CONSTRAINT "user" FOREIGN KEY (user_id)
+        REFERENCES public."user" (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.exchange
+    OWNER to qhifkeykkmtvou;
+
+ALTER TABLE public.exchange
+    ADD COLUMN date date NOT NULL;
