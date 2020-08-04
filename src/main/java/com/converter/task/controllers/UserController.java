@@ -1,6 +1,7 @@
 package com.converter.task.controllers;
 
 import com.converter.task.models.User;
+import org.json.*;
 import com.converter.task.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,9 +17,11 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User register(@RequestBody String login, String password){
+    public User register(@RequestBody String userData) throws JSONException {
         User user = new User();
-        login = login.substring(6, login.indexOf("&"));
+        JSONObject data = new JSONObject(userData);
+        String login = data.getString("login");
+        String password = data.getString("password");
         if(userService.findUserByLogin(login) == null) {
             user.setLogin(login);
             user.setPassword(passwordEncoder.encode(password));
@@ -28,8 +31,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody String login, String password){
-        login = login.substring(6, login.indexOf("&"));
+    public String login(@RequestBody String userData) throws JSONException {
+        JSONObject data = new JSONObject(userData);
+        String login = data.getString("login");
+        String password = data.getString("password");
         User user = userService.findUserByLogin(login);
         if(user == null){
             return "Wrong login";
