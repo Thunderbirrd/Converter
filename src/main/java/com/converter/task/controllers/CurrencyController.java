@@ -39,7 +39,7 @@ public class CurrencyController {
         return (ArrayList<Currency>)currencyService.getAllCurrencies();
     }
 
-
+    
      void parseCurrentRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
         URL obj = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
