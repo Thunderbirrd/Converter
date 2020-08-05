@@ -23,4 +23,9 @@ public class CurrencyService {
         currency.setRate(rate);
         return currencyRepo.save(currency);
     }
+
+    @Transactional
+    public void saveCurrency(Currency currency){
+        currencyRepo.save(currency);
+    }
 }
