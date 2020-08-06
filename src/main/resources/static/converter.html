@@ -23,11 +23,25 @@
     <br> <br>
     <h1>История конвертаций</h1>
     <br>
-    <div>
-        <select id="date"></select>
-        <select id="currency1"></select>
-        <select id="currency2"></select>
-    </div>
+    <form id="search">
+        <div>
+            <select id="date"></select>
+            <select id="currency1"></select>
+            <select id="currency2"></select>
+        </div>
+        <br>
+        <table id="history" border="1">
+            <tr>
+                <th>Исходная валюта</th>
+                <th>Целевая валюта</th>
+                <th>Исходная сумма</th>
+                <th>Получаемая суммма</th>
+                <th>Дата</th>
+            </tr>
+        </table>
+        <br>
+        <button type="submit">Поиск</button>
+    </form>
     <script src="js/converter.js"></script>
 </body>
 </html>
