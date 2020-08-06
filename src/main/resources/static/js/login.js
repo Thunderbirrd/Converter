@@ -1,3 +1,9 @@
+window.onload = async () =>{
+  if(document.cookie !== ""){
+      window.location = "/converter.html"
+  }
+};
+
 document.getElementById("login").addEventListener("submit", async function(e) {
     e.preventDefault();
     let login = e.target.elements.login.value;

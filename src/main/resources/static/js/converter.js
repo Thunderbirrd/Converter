@@ -1,4 +1,7 @@
 window.onload = async () => {
+    if(document.cookie === ""){
+        window.location = "/"
+    }
     let response = await fetch("/getAllCurrencies", {method: "GET"});
     let result = await response.json();
     for(let i = 0; i < result.length; i++){
