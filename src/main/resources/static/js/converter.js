@@ -55,5 +55,38 @@ document.getElementById("exchange").addEventListener("submit", async function (e
 
 document.getElementById("search").addEventListener("submit", async function (e) {
     e.preventDefault();
+    let date = document.getElementById("date").value;
+    console.log(date);
+    let currency1 = document.getElementById("currency1").value;
+    let currency2 = document.getElementById("currency2").value;
+    let userId = document.cookie;
+    let data = {date, currency1, currency2, userId};
+
+    let response = await fetch("/converter.html/search", {method: "POST", headers: {
+            'Content-Type': 'application/json;charset=utf-8'},
+        body: JSON.stringify(data)});
+
+    let answer = await response.json();
+    let tbody = document.getElementById("history");
+    tbody.innerHTML = "";
+    for(let i = 0; i < answer.length; i++){
+        let tr = document.createElement("tr");
+        let td = document.createElement("td");
+        td.textContent = answer[i].currency1;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = answer[i].currency2;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = String(answer[i].value1);
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = String(answer[i].value2);
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = answer[i].date.substring(0, 10);
+        tr.appendChild(td);
+        tbody.appendChild(tr)
+    }
 
 });

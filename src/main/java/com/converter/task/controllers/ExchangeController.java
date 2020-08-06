@@ -56,4 +56,22 @@ public class ExchangeController {
         exchangeService.saveExchange(exchange);
         return answer;
     }
+
+    @RequestMapping(value = "/converter.html/search", method = RequestMethod.POST)
+    public ArrayList<Exchange> history(@RequestBody String data) throws JSONException, ParseException {
+        JSONObject d = new JSONObject(data);
+        String dateString = d.getString("date");
+        String currency1 = d.getString("currency1");
+        String currency2 = d.getString("currency2");
+        Integer userId = d.getInt("userId");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(dateString);
+        ArrayList<Exchange> result = null;
+        if(currency1.equals("") && currency2.equals("")){
+            result = (ArrayList<Exchange>) exchangeService.getAllExchangesByDate(date, userId);
+        }else{
+            result = (ArrayList<Exchange>) exchangeService.getAllByDateAndCurrencies(date, currency1, currency2, userId);
+        }
+        return result;
+    }
 }
