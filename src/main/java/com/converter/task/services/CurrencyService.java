@@ -20,20 +20,20 @@ public class CurrencyService {
     }
 
     @Transactional
-    public Currency updateCurrencyRate(String name, double rate, Date date){
+    public void updateCurrencyRate(String name, double rate, Date date){
         Currency currency = currencyRepo.findCurrencyByName(name);
         if(currency != null){
             currency.setRate(rate);
             currency.setUpdate_date(date);
-            return currencyRepo.save(currency);
+            currencyRepo.save(currency);
         }
-        return null;
     }
 
     @Transactional(readOnly = true)
     public Currency findCurrencyByName(String name){
         return currencyRepo.findCurrencyByName(name);
     }
+
     @Transactional
     public void saveCurrency(Currency currency){
         currencyRepo.save(currency);

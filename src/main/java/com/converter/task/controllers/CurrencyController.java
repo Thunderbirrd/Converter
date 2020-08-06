@@ -57,6 +57,10 @@ public class CurrencyController {
         Document document = documentBuilder.parse(inputSource);
         Node root = document.getDocumentElement();
         NodeList currencies = root.getChildNodes();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        currencyService.updateCurrencyRate("RUB(Российский рубль)", 1.0,
+                formatter.parse(formatter.format(date)));
         for(int i = 0; i < currencies.getLength(); i++){
             Node currency = currencies.item(i);
             NodeList currencyData = currency. getChildNodes();
@@ -65,8 +69,6 @@ public class CurrencyController {
             double rate = Double.parseDouble(currencyData.item(4).getTextContent().replaceAll(",",
                     ".")) / Double.parseDouble(currencyData.item(2).getTextContent().replaceAll(",",
                     "."));
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = new Date();
             currencyService.updateCurrencyRate(name, rate, formatter.parse(formatter.format(date)));
         }
     }

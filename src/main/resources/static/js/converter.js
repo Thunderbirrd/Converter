@@ -6,14 +6,22 @@ window.onload = async () => {
     }
     let select1 = document.getElementById("from");
     let select2 = document.getElementById("to");
+    let select3 = document.getElementById("currency1");
+    let select4 = document.getElementById("currency2");
 
     for(let i = 0; i < result.length; i++){
         let option = document.createElement("option");
         option.textContent = result[i].name;
         let option2 = document.createElement("option");
         option2.textContent = result[i].name;
+        let option3 = document.createElement("option");
+        option3.textContent = result[i].name;
+        let option4 = document.createElement("option");
+        option4.textContent = result[i].name;
         select1.appendChild(option);
-        select2.appendChild(option2)
+        select2.appendChild(option2);
+        select3.appendChild(option3);
+        select4.appendChild(option4);
     }
 };
 
