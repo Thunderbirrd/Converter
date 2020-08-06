@@ -39,7 +39,38 @@ public class CurrencyController {
         return (ArrayList<Currency>)currencyService.getAllCurrencies();
     }
 
-    
+
+    void updateRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
+        URL obj = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "windows-1251"));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        InputSource inputSource = new InputSource(new StringReader(response.toString()));
+        inputSource.setEncoding("UTF-8");
+        Document document = documentBuilder.parse(inputSource);
+        Node root = document.getDocumentElement();
+        NodeList currencies = root.getChildNodes();
+        for(int i = 0; i < currencies.getLength(); i++){
+            Node currency = currencies.item(i);
+            NodeList currencyData = currency. getChildNodes();
+            String name = currencyData.item(1).getTextContent() + "(" + currencyData.item(3).getTextContent()
+                    + ")";
+            double rate = Double.parseDouble(currencyData.item(4).getTextContent()) / Double.parseDouble(currencyData
+                    .item(2).getTextContent());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            currencyService.updateCurrencyRate(name, rate, formatter.parse(formatter.format(date)));
+        }
+    }
+
+    /* Used this function for first dilling of DB
      void parseCurrentRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
         URL obj = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -90,4 +121,5 @@ public class CurrencyController {
         }
 
     }
+     */
 }
