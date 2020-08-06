@@ -62,15 +62,16 @@ public class CurrencyController {
             NodeList currencyData = currency. getChildNodes();
             String name = currencyData.item(1).getTextContent() + "(" + currencyData.item(3).getTextContent()
                     + ")";
-            double rate = Double.parseDouble(currencyData.item(4).getTextContent()) / Double.parseDouble(currencyData
-                    .item(2).getTextContent());
+            double rate = Double.parseDouble(currencyData.item(4).getTextContent().replaceAll(",",
+                    ".")) / Double.parseDouble(currencyData.item(2).getTextContent().replaceAll(",",
+                    "."));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = new Date();
             currencyService.updateCurrencyRate(name, rate, formatter.parse(formatter.format(date)));
         }
     }
 
-    /* Used this function for first dilling of DB
+    /* Used this function for first filling of DB
      void parseCurrentRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
         URL obj = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();

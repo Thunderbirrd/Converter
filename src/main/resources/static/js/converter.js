@@ -21,10 +21,20 @@ document.getElementById("exchange").addEventListener("submit", async function (e
     e.preventDefault();
     let select1 = document.getElementById("from");
     let select2 = document.getElementById("to");
-    /*
-    let response = await fetch("/exchange", {method: "POST", headers: {
+    let currencyFrom = select1.options[select1.selectedIndex].textContent;
+    let currencyTo = select2.options[select2.selectedIndex].textContent;
+    let data = {currencyFrom, currencyTo};
+
+    let response = await fetch("/converter.html/exchange", {method: "POST", headers: {
             'Content-Type': 'application/json;charset=utf-8'},
-        body: JSON.stringify();
-    )
-     */
+        body: JSON.stringify(data)}
+    );
+
+    let answer = await response.json();
+    let rate1 = answer[0];
+    let rate2 = answer[1];
+    rate1 = Math.round(rate1 * 10000) / 10000;
+    rate2 = Math.round(rate2 * 10000) / 10000;
+    let input = document.getElementById("input1").value;
+    document.getElementById("input2").value = Math.round(input * rate1 / rate2 * 10000) / 10000;
 });
