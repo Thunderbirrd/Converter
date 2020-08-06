@@ -44,7 +44,7 @@ public class UserController {
             return "Wrong login";
         }
         else if(passwordEncoder.matches(password, user.getPassword())){
-            return "Login successful";
+            return user.getId().toString();
         }else {
             return "Wrong password";
         }

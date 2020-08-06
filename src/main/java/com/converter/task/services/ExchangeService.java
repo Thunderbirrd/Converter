@@ -20,13 +20,8 @@ public class ExchangeService {
     }
 
     @Transactional(readOnly = true)
-    public List<Exchange> getAllExchangesByDate(Date date){
-        return exchangeRepo.getAllByDate(date);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Exchange> getAllByCurrencies(String currency1, String currency2){
-        return exchangeRepo.getAllByCurrency1AndCurrency2(currency1, currency2);
+    public List<Exchange> getAllExchangesByDate(Date date1){
+        return exchangeRepo.getAllByDate(date1);
     }
 
     @Transactional(readOnly = true)

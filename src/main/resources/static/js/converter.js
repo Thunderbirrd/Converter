@@ -8,6 +8,10 @@ window.onload = async () => {
     let select2 = document.getElementById("to");
     let select3 = document.getElementById("currency1");
     let select4 = document.getElementById("currency2");
+    let option = document.createElement("option");
+    let option2 = document.createElement("option");
+    option.textContent = ""; option2.textContent = "";
+    select3.appendChild(option); select4.appendChild(option2);
 
     for(let i = 0; i < result.length; i++){
         let option = document.createElement("option");
@@ -29,9 +33,11 @@ document.getElementById("exchange").addEventListener("submit", async function (e
     e.preventDefault();
     let select1 = document.getElementById("from");
     let select2 = document.getElementById("to");
+    let input = document.getElementById("input1").value;
     let currencyFrom = select1.options[select1.selectedIndex].textContent;
     let currencyTo = select2.options[select2.selectedIndex].textContent;
-    let data = {currencyFrom, currencyTo};
+    let userId = document.cookie;
+    let data = {currencyFrom, currencyTo, userId, input};
 
     let response = await fetch("/converter.html/exchange", {method: "POST", headers: {
             'Content-Type': 'application/json;charset=utf-8'},
@@ -43,6 +49,11 @@ document.getElementById("exchange").addEventListener("submit", async function (e
     let rate2 = answer[1];
     rate1 = Math.round(rate1 * 10000) / 10000;
     rate2 = Math.round(rate2 * 10000) / 10000;
-    let input = document.getElementById("input1").value;
     document.getElementById("input2").value = Math.round(input * rate1 / rate2 * 10000) / 10000;
+});
+
+
+document.getElementById("search").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
 });

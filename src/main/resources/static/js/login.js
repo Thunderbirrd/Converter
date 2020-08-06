@@ -12,7 +12,6 @@ document.getElementById("login").addEventListener("submit", async function(e) {
         },
         body: JSON.stringify(user)});
     let result = await response.text();
-    console.log(result);
     switch (result) {
         case "Wrong login":
             div.style.display = "";
@@ -22,7 +21,8 @@ document.getElementById("login").addEventListener("submit", async function(e) {
             div.style.display = "";
             div.textContent = "Неправильный пароль";
             break;
-        case "Login successful":
+        default:
+            document.cookie = result;
             window.location = "/converter.html";
             break;
     }

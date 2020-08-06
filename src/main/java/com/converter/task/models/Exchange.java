@@ -22,10 +22,10 @@ public class Exchange {
     private String currency1;
     @Column(name = "currency2")
     private String currency2;
-    @Column(name = "rate1")
-    private Double rate1;
-    @Column(name = "rate2")
-    private Double rate2;
+    @Column(name = "value1")
+    private Double value1;
+    @Column(name = "value2")
+    private Double value2;
     @Column(name = "date")
     private Date date;
 }
