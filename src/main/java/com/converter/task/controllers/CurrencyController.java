@@ -1,5 +1,6 @@
 package com.converter.task.controllers;
 
+import com.converter.task.ApplicationProperties;
 import com.converter.task.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +35,15 @@ public class CurrencyController {
     @Autowired
     CurrencyService currencyService;
 
+    ApplicationProperties properties = new ApplicationProperties();
+
     @RequestMapping(value = "/getAllCurrencies", method = RequestMethod.GET)
     public ArrayList<Currency> getAllCurrencies(){
         return (ArrayList<Currency>)currencyService.getAllCurrencies();
     }
 
-
     void updateRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
-        URL obj = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
+        URL obj = new URL(properties.getProperty("cbr.url"));
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), "windows-1251"));
@@ -75,7 +77,7 @@ public class CurrencyController {
 
     /* Used this function for first filling of DB
      void parseCurrentRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
-        URL obj = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
+        URL obj = new URL(properties.getProperty("cbr.url"));
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), "windows-1251"));
